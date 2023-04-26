@@ -10,3 +10,5 @@ homepage
 <script>document.write("123");</script>
 
 123
+
+<a href="https://cybersecurity2045.github.io/haha">Click here to visit Example.com</a>

@@ -2,6 +2,8 @@
 
 haha
 
+
+
 homepage
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9575603125746935"
@@ -12,3 +14,4 @@ homepage
 123
 
 <a href="https://cybersecurity2045.github.io/haha">Click here to visit Example.com</a>
+<a href="info.html">Info</a>

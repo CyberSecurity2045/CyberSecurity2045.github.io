@@ -8,3 +8,5 @@ homepage
      crossorigin="anonymous"></script>
 
 <script>document.write("123");</script>
+
+123

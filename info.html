@@ -1,50 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>MS Paint Clone</title>
-<style> 
-body {
-  font-family: sans-serif;
-}
-#toolbar {
-  background: #e6e6e6;
-  padding: 10px;
-}
-#toolbar button {
-  border: 1px solid #ccc;
-  background: #fff;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-#drawing-area {
-  border: 1px solid #333;
-  width: 800px;
-  height: 600px;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Canvas Paint</title>
+  <style>
+    canvas {border: 1px solid black;}
+    button, label {margin-top: 10px;}
+  </style>
 </head>
 <body>
-<div id="toolbar">
-  <button id="pencil">Pencil</button>
-  <button id="brush">Brush</button>
-  <button id="eraser">Eraser</button>
-  <button id="fill">Fill</button>
-  <button id="color">Color</button>
-</div>  
-<div id="drawing-area"></div>
+<canvas id="drawingCanvas" width="800" height="500"></canvas>
+<br>
+<label for="color">Color:</label>
+<input type="color" id="color" value="#000000">
+<br>
+<label for="lineWidth">Line Width:</label>
+<input type="range" id="lineWidth" min="1" max="50" value="5" style="width: 200px;">
+<br>
+<label for="tool">Tool:</label>
+<select id="tool">
+  <option value="draw">Draw</option>
+  <option value="line">Line</option>
+  <option value="rect">Rectangle</option>
+  <option value="circle">Circle</option>
+  <option value="erase">Erase</option>
+</select>
+<br>
+<button id="clear">Clear</button>
+<button id="save">Save</button>
 <script>
-const canvas = document.querySelector('#drawing-area');
-const ctx = canvas.getContext('2d');
-ctx.fillStyle = 'white'; 
-ctx.fillRect(0, 0, canvas.width, canvas.height);
+  const canvas = document.getElementById('drawingCanvas');
+  const ctx = canvas.getContext('2d');
+  const colorInput = document.getElementById('color');
+  const lineWidthInput = document.getElementById('lineWidth');
+  const toolSelect = document.getElementById('tool');
+  const clearBtn = document.getElementById('clear');
+  const saveBtn = document.getElementById('save');
 
-document.querySelector('#pencil').addEventListener('click', () => {
-  ctx.strokeStyle = 'black';
-  ctx.lineWidth = 1;
-  ctx.lineCap = 'round';
-});
+  let drawing = false;
+  let tool = 'draw';
+  let startX, startY;
 
-// Add event handlers and logic for other buttons...
+  canvas.addEventListener('mousedown', (e) => {
+    drawing = true;
+    startX = e.clientX - canvas.offsetLeft;
+    startY = e.clientY - canvas.offsetTop;
+    ctx.beginPath();
+    ctx.moveTo(startX, startY);
+  });
+
+  canvas.addEventListener('mousemove', (e) => {
+    if (!drawing) return;
+    if (tool === 'draw' || tool === 'erase') {
+      draw(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+    }
+  });
+
+  canvas.addEventListener('mouseup', (e) => {
+    if (drawing && (tool === 'line' || tool === 'rect' || tool === 'circle')) {
+      drawShape(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+    }
+    drawing = false;
+  });
+
+  colorInput.addEventListener('change', () => ctx.strokeStyle = colorInput.value);
+  lineWidthInput.addEventListener('change', () => ctx.lineWidth = lineWidthInput.value);
+  toolSelect.addEventListener('change', () => tool = toolSelect.value);
+  clearBtn.addEventListener('click', () => ctx.clearRect(0, 0, canvas.width, canvas.height));
+  saveBtn.addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL('image/png');
+    link.download = 'drawing.png';
+    link.click();
+  });
+
+  function draw(x, y) {
+    ctx.globalCompositeOperation = tool === 'erase' ? 'destination-out' : 'source-over';
+    ctx.lineTo(x, y);
+    ctx.stroke();
+  }
+
+  function drawShape(endX, endY) {
+    ctx.closePath();
+    ctx.globalCompositeOperation = 'source-over';
+    if (tool === 'line') {
+      ctx.lineTo(endX, endY);
+      ctx.stroke();
+    } else if (tool === 'rect') {
+      ctx.strokeRect(startX, startY, endX - startX, endY - startY);
+    } else if (tool === 'circle') {
+      const radius = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+      ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
+      ctx.stroke();
+    }
+  }
 </script>
 </body>
 </html>

@@ -1,5 +1,3 @@
-# CyberSecurity2045.github.io
-
 <html>
 haha
 
@@ -11,6 +9,7 @@ homepage
      crossorigin="anonymous"></script>
 
 <script>document.write("Welcome!");</script>
+<script>document.write("This site will keep updating the latest IT Tech!");</script>
 </br>
 <a href="https://cybersecurity2045.github.io/haha">Click here to visit Example.com</a>
 </br>

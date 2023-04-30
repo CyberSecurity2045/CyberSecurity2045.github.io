@@ -2,7 +2,7 @@
 haha
 
 
-<img src="qrcode.png" alt="Alt text" title="Optional title">
+<img src="qrcode.png" width="300" height="300" alt="Alt text" title="Optional title">
 
 homepage
 

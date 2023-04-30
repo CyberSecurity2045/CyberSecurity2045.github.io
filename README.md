@@ -2,6 +2,7 @@
 haha
 
 
+<img src="qrcode.png" alt="Alt text" title="Optional title">
 
 homepage
 

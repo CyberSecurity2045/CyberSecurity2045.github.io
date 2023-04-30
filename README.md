@@ -1,6 +1,6 @@
 Donate
 >
-<img src="qrcode.png" width="300" height="300" alt="Alt text" title="Optional title">
+<img src="qrcode.png" width="250" height="250" alt="Alt text" title="Optional title">
 
 homepage
 

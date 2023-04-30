@@ -5,11 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IT Blogger</title>
   <style>
-    body {
+    html, body {
+      height: 100%;
       font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
       background-color: #F8F8F8;
+    }
+
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
     }
 
     .navbar {
@@ -42,6 +49,7 @@
     }
 
     .main-content {
+      flex-grow: 1;
       margin: 2rem;
     }
 
@@ -67,39 +75,41 @@
   </style>
 </head>
 <body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">
-        <h2 style="color: #FFFFFF;">IT Blogger</h2>
-      </div>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#articles">Articles</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#donate">Donate</a></li>
-      </ul>
-    </nav>
-  </header>
+  <div class="page-wrapper">
+    <header>
+      <nav class="navbar">
+        <div class="logo">
+          <h2 style="color: #FFFFFF;">IT Blogger</h2>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#articles">Articles</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#donate">Donate</a></li>
+        </ul>
+      </nav>
+    </header>
 
-  <section class="main-content" id="home">
-    <h1>Welcome to IT Blogger</h1>
-    <p>This is a simple IT Blogger website template. Use this section to introduce yourself and your blog to your visitors.</p>
-  </section>
+    <section class="main-content" id="home">
+      <h1>Welcome to IT Blogger</h1>
+      <p>This is a simple IT Blogger website template. Use this section to introduce yourself and your blog to your visitors.</p>
+    </section>
 
-  <section class="main-content" id="articles">
-    <h1>Latest Articles</h1>
-    <p>Here, you can list your latest articles, blog posts, or any other content you wish to share with your audience.</p>
-  </section>
+    <section class="main-content" id="articles">
+      <h1>Latest Articles</h1>
+      <p>Here, you can list your latest articles, blog posts, or any other content you wish to share with your audience.</p>
+    </section>
 
-  <section class="main-content" id="about">
-    <h1>About IT Blogger</h1>
-    <p>Provide information about your background, your interests, and what inspired you to start this IT blog. You may also include any relevant certifications, training, or experience you have acquired in the field of Information Technology.</p>
-  </section>
+    <section class="main-content" id="about">
+      <h1>About IT Blogger</h1>
+      <p>Provide information about your background, your interests, and what inspired you to start this IT blog. You may also include any relevant certifications, training, or experience you have acquired in the field of Information Technology.</p>
+    </section>
 
-  <section class="main-content" id="donate">
-    <h1>Donate</h1>
-    <p>Support this blog by making a donation. Add your preferred method of donation here, such as a PayPal link, cryptocurrency address, or any other payment method.</p>
-  </section>
+    <section class="main-content" id="donate">
+      <h1>Donate</h1>
+      <p>Support this blog by making a donation. Add your preferred method of donation here, such as a PayPal link, cryptocurrency address, or any other payment method.</p>
+    </section>
+  </div>
   
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9575603125746935"
      crossorigin="anonymous"></script>

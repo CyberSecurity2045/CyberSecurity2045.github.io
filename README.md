@@ -15,26 +15,4 @@ homepage
 
 <a href="https://cybersecurity2045.github.io/haha">Click here to visit Example.com</a>
 <br>
-<a href="info.html">Info</a>
-
-<!DOCTYPE html>
-<html>
-<head>
-	<title>My Title</title>
-	<style>
-		/* Style the title bar */
-		.title-bar {
-			background-color: #333;
-			color: white;
-			padding: 1em;
-			text-align: center;
-		}
-	</style>
-</head>
-<body>
-	<div class="title-bar">
-		<h1>Page Title</h1>
-	</div>
-	<!-- Rest of page content goes here -->
-</body>
-</html>
+<a href="Paint.html">Paint</a>

@@ -1,84 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Draw Picture</title>
-<style>
-  canvas {border: 1px solid black;}
-  button, label {margin-top: 10px;}
+<title>MS Paint Clone</title>
+<style> 
+body {
+  font-family: sans-serif;
+}
+#toolbar {
+  background: #e6e6e6;
+  padding: 10px;
+}
+#toolbar button {
+  border: 1px solid #ccc;
+  background: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+#drawing-area {
+  border: 1px solid #333;
+  width: 800px;
+  height: 600px;
+}
 </style>
 </head>
 <body>
-<canvas id="drawingCanvas" width="500" height="300"></canvas>
-<br>
-<label for="color">Color:</label>
-<input type="color" id="color" value="#000000">
-<br>
-<label for="bgColor">Background Color:</label>
-<input type="color" id="bgColor" value="#ffffff">
-<br>
-<label for="tool">Tool:</label>
-<select id="tool">
-  <option value="draw">Draw</option>
-  <option value="erase">Erase</option>
-</select>
-<br>
-<label for="pen">Pen:</label>
-<select id="pen">
-  <option value="2">Thin</option>
-  <option value="5">Medium</option>
-  <option value="10">Thick</option>
-</select>
-<br>
-<button id="clear">Clear</button>
-<button id="save">Save</button>
+<div id="toolbar">
+  <button id="pencil">Pencil</button>
+  <button id="brush">Brush</button>
+  <button id="eraser">Eraser</button>
+  <button id="fill">Fill</button>
+  <button id="color">Color</button>
+</div>  
+<div id="drawing-area"></div>
 <script>
-  const canvas = document.getElementById('drawingCanvas');
-  const ctx = canvas.getContext('2d');
-  const colorInput = document.getElementById('color');
-  const bgColorInput = document.getElementById('bgColor');
-  const toolSelect = document.getElementById('tool');
-  const penSelect = document.getElementById('pen');
-  const clearBtn = document.getElementById('clear');
-  const saveBtn = document.getElementById('save');
+const canvas = document.querySelector('#drawing-area');
+const ctx = canvas.getContext('2d');
+ctx.fillStyle = 'white'; 
+ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  let drawing = false;
-  let tool = 'draw';
-  let penWidth = 2;
-  ctx.fillStyle = bgColorInput.value;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+document.querySelector('#pencil').addEventListener('click', () => {
+  ctx.strokeStyle = 'black';
+  ctx.lineWidth = 1;
+  ctx.lineCap = 'round';
+});
 
-  canvas.addEventListener('mousedown', (e) => {drawing = true; draw(e);});
-  canvas.addEventListener('mousemove', draw);
-  canvas.addEventListener('mouseup', () => drawing = false);
-  colorInput.addEventListener('change', () => ctx.strokeStyle = colorInput.value);
-  bgColorInput.addEventListener('change', () => {
-    ctx.fillStyle = bgColorInput.value;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-  });
-  toolSelect.addEventListener('change', () => tool = toolSelect.value);
-  penSelect.addEventListener('change', () => penWidth = parseInt(penSelect.value));
-  clearBtn.addEventListener('click', () => {
-    ctx.fillStyle = bgColorInput.value;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-  });
-  saveBtn.addEventListener('click', () => {
-    const link = document.createElement('a');
-    link.href = canvas.toDataURL('image/png');
-    link.download = 'drawing.png';
-    link.click();
-  });
-
-  function draw(e) {
-    if (!drawing) return;
-    ctx.lineWidth = tool === 'erase' ? 20 : penWidth;
-    ctx.globalCompositeOperation = tool === 'erase' ? 'destination-out' : 'source-over';
-    ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
-  }
+// Add event handlers and logic for other buttons...
 </script>
 </body>
 </html>

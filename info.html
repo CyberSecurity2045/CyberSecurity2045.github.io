@@ -1,1 +1,58 @@
-You are redirected!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Draw Picture</title>
+<style>
+  canvas {border: 1px solid black;}
+  button, label {margin-top: 10px;}
+</style>
+</head>
+<body>
+<canvas id="drawingCanvas" width="500" height="300"></canvas>
+<br>
+<label for="color">Color:</label>
+<input type="color" id="color" value="#000000">
+<br>
+<label for="tool">Tool:</label>
+<select id="tool">
+  <option value="draw">Draw</option>
+  <option value="erase">Erase</option>
+</select>
+<br>
+<button id="save">Save</button>
+<script>
+  const canvas = document.getElementById('drawingCanvas');
+  const ctx = canvas.getContext('2d');
+  const colorInput = document.getElementById('color');
+  const toolSelect = document.getElementById('tool');
+  const saveBtn = document.getElementById('save');
+
+  let drawing = false;
+  let tool = 'draw';
+
+  canvas.addEventListener('mousedown', (e) => {drawing = true; draw(e);});
+  canvas.addEventListener('mousemove', draw);
+  canvas.addEventListener('mouseup', () => drawing = false);
+  colorInput.addEventListener('change', () => ctx.strokeStyle = colorInput.value);
+  toolSelect.addEventListener('change', () => tool = toolSelect.value);
+  saveBtn.addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL('image/png');
+    link.download = 'drawing.png';
+    link.click();
+  });
+
+  function draw(e) {
+    if (!drawing) return;
+    ctx.lineWidth = tool === 'erase' ? 20 : 2;
+    ctx.globalCompositeOperation = tool === 'erase' ? 'destination-out' : 'source-over';
+    ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+  }
+</script>
+</body>
+</html>
